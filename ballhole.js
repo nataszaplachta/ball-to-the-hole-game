@@ -1,7 +1,7 @@
 window.addEventListener('deviceorientation', phoneMove);
 document.addEventListener('DOMContentLoaded', appStart)
 
-let ballDOM, hole
+let ballDOM, holeDOM
 const ball = {
     x: 0,
     y: 0,
@@ -10,6 +10,11 @@ const ball = {
     maxXSpeed: 3,
     maxYSpeed: 3
     
+}
+
+const hole= {
+    x: 0,
+    y: 0
 }
 
 const startOrientation = {
@@ -21,12 +26,12 @@ const startOrientation = {
 
 function appStart() {
     ballDOM = document.querySelector('#ball');
-    hole = document.querySelector('#hole');
+    holeDOM = document.querySelector('#hole');
     //wylosować i ustawic położenie dziury
-    const holeTop = (Math.random()*window.innerHeight).toFixed();
-    const holeLeft = (Math.random()*window.innerWidth).toFixed();
-    hole.style.top = holeTop + 'px';
-    hole.style.left = holeLeft + 'px';
+    hole.y = (Math.random()*window.innerHeight).toFixed();
+    hole.x = (Math.random()*window.innerWidth).toFixed();
+    holeDOM.style.top = hole.y + 'px';
+    holeDOM.style.left = hole.x + 'px';
     moveBall();
 }
 
@@ -67,6 +72,12 @@ function moveBall() {
         ball.y += ball.ySpeed;
     }
     else {ball.y = 0}    
+
+    // czy kulka znalazła się w dziurze
+
+    if (Math.abs((hole.x - ball.x)  < 10 && Math.abs(hole.y - ball.y) < 10)) {
+        alert('Wygrałeś!');
+    }
     ballDOM.style.left = ball.x + 'px';
     ballDOM.style.top = ball.y + 'px';
     requestAnimationFrame(moveBall)
