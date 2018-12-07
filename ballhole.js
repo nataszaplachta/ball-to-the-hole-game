@@ -51,8 +51,22 @@ function setOrientation (alpha, beta, gamma) {
 }
 
 function moveBall() {
-    ball.x += ball.xSpeed;
-    ball.y += ball.ySpeed;
+    if (ball.x <= window.innerWidth){
+        ball.x += ball.xSpeed;
+    }
+    else {ball.x = window.innerWidth}
+    if (ball.x >= 0) {
+        ball.x += ball.xSpeed;
+    }
+    else {ball.x = 0}    
+    if (ball.y <= window.innerHeight){
+        ball.y += ball.ySpeed;
+    }
+    else {ball.y = window.innerHeight}
+    if (ball.y >= 0) {
+        ball.y += ball.ySpeed;
+    }
+    else {ball.y = 0}    
     ballDOM.style.left = ball.x + 'px';
     ballDOM.style.top = ball.y + 'px';
     requestAnimationFrame(moveBall)
